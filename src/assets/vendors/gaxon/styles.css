@@ -38,6 +38,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-customers:before {
+  content: "\f0c0";
+}
+
 .icon-add:before {
   content: "\61";
 }
