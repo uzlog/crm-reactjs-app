@@ -12,6 +12,7 @@ import {
   THEME_TYPE_LITE
 } from "../../constants/ThemeSetting";
 
+// import IntlMessages from "../../util/IntlMessages";
 
 class SidebarLogo extends Component {
 
@@ -43,12 +44,12 @@ class SidebarLogo extends Component {
         </div> : null}
 
         <Link to="/" className="gx-site-logo">
-          {navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && width >= TAB_SIZE ?
-            <img alt="" src={require("assets/images/w-logo.png")}/> :
-            themeType === THEME_TYPE_LITE ?
-              <img alt="" src={require("assets/images/logo-white.png")}/> :
-              <img alt="" src={require("assets/images/logo.png")}/>}
-
+          {/*{navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && width >= TAB_SIZE ?*/}
+          {/*  <img alt="" src={require("assets/images/w-logo.png")}/> :*/}
+          {/*  themeType === THEME_TYPE_LITE ?*/}
+          {/*    <img alt="" src={require("assets/images/logo-white.png")}/> :*/}
+          {/*    <img alt="" src={require("assets/images/logo.png")}/>}*/}
+          <img alt="" style={{ height: '58px' }} src="/v-chain.png" />
         </Link>
 
       </div>

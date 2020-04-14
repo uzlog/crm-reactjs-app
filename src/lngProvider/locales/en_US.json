@@ -267,5 +267,11 @@
   "appearance.theme": "THEME",
   "appearance.theme.lite": "Lite",
   "appearance.theme.semi_dark": "Semi Dark",
-  "appearance.theme.dark": "Dark"
+  "appearance.theme.dark": "Dark",
+  "appearance.colors": "COLORS",
+  "appearance.colors.preset": "Preset Color Pallets",
+  "appearance.colors.customize": "Customize",
+  "appearance.nav": "NAV STYLE",
+  "appearance.layout": "LAYOUT",
+  "vchain": "V-Chain"
 }

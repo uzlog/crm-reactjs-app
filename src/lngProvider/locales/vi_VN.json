@@ -265,5 +265,10 @@
   "appearance.theme": "Nền",
   "appearance.theme.lite": "Sáng",
   "appearance.theme.semi_dark": "Mặc định",
-  "appearance.theme.dark": "Tối"
+  "appearance.theme.dark": "Tối",
+  "appearance.colors": "MÀU",
+  "appearance.colors.preset": "Bảng màu cài sẵn",
+  "appearance.colors.customize": "Tùy chỉnh",
+  "appearance.nav": "KIỂU ĐIỀU HƯỚNG",
+  "appearance.layout": "BỐ CỤC"
 }

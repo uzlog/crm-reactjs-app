@@ -166,10 +166,10 @@ class Customizer extends Component {
         </Radio.Group>
       </div>
       <div className="gx-customizer-item">
-        <h6 className="gx-mb-3 gx-text-uppercase">Colors</h6>
+        <h6 className="gx-mb-3 gx-text-uppercase"><IntlMessages id="appearance.colors"/></h6>
         <Radio.Group className="gx-mb-3" value={colorSelection} onChange={this.onColorSelectionTypeChange}>
-          <Radio.Button value={THEME_COLOR_SELECTION_PRESET}>Preset Color Pallets</Radio.Button>
-          <Radio.Button value={THEME_COLOR_SELECTION_CUSTOMIZE}>Customize</Radio.Button>
+          <Radio.Button value={THEME_COLOR_SELECTION_PRESET}><IntlMessages id="appearance.colors.preset"/></Radio.Button>
+          <Radio.Button value={THEME_COLOR_SELECTION_CUSTOMIZE}><IntlMessages id="appearance.colors.customize"/></Radio.Button>
         </Radio.Group>
 
         {colorSelection === THEME_COLOR_SELECTION_CUSTOMIZE ?
@@ -184,11 +184,11 @@ class Customizer extends Component {
           : this.getPresetColors()}
       </div>
 
-      <h6 className="gx-mb-3 gx-text-uppercase">Nav Style</h6>
+      <h6 className="gx-mb-3 gx-text-uppercase"><IntlMessages id="appearance.nav"/></h6>
 
       {this.getNavStyles(navStyle)}
 
-      <h6 className="gx-mb-3 gx-text-uppercase">Layout</h6>
+      <h6 className="gx-mb-3 gx-text-uppercase"><IntlMessages id="appearance.layout"/></h6>
 
       {this.getLayoutsTypes(layoutType)}
     </CustomScrollbars>
