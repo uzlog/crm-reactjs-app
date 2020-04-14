@@ -63,6 +63,7 @@ import {
   THEME_TYPE_LITE,
   THEME_TYPE_SEMI_DARK
 } from "../constants/ThemeSetting";
+import IntlMessages from "../util/IntlMessages";
 
 
 class Customizer extends Component {
@@ -157,11 +158,11 @@ class Customizer extends Component {
 
     return <CustomScrollbars className="gx-customizer">
       <div className="gx-customizer-item">
-        <h6 className="gx-mb-3 gx-text-uppercase">Theme</h6>
+        <h6 className="gx-mb-3 gx-text-uppercase"><IntlMessages id="appearance.theme"/></h6>
         <Radio.Group value={themeType} onChange={this.onThemeTypeChange}>
-          <Radio.Button value={THEME_TYPE_LITE}>Lite</Radio.Button>
-          <Radio.Button value={THEME_TYPE_SEMI_DARK}>Semi Dark</Radio.Button>
-          <Radio.Button value={THEME_TYPE_DARK}>Dark</Radio.Button>
+          <Radio.Button value={THEME_TYPE_LITE}><IntlMessages id="appearance.theme.lite"/></Radio.Button>
+          <Radio.Button value={THEME_TYPE_SEMI_DARK}><IntlMessages id="appearance.theme.semi_dark"/></Radio.Button>
+          <Radio.Button value={THEME_TYPE_DARK}><IntlMessages id="appearance.theme.dark"/></Radio.Button>
         </Radio.Group>
       </div>
       <div className="gx-customizer-item">

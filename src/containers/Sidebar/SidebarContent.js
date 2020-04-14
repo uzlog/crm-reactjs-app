@@ -81,68 +81,26 @@ class SidebarContent extends Component {
                 </SubMenu>
 
                 <Menu.Item key="social-apps/wall">
-                  <Link to="/social-apps/wall">
-                    <i className="icon icon-user-o -flex-column-reverse"/>
+                  <Link to="/in-built-apps/firebase-crud">
+                    <i className="icon icon-contacts -flex-column-reverse"/>
                     <IntlMessages id="sidebar.customers"/>
                   </Link>
                 </Menu.Item>
 
-                <Menu.Item key="main/widgets">
-                  <Link to="/main/widgets"><i className="icon icon-widgets"/>
-                    <IntlMessages id="sidebar.widgets"/></Link>
+                <Menu.Item key="main/tasks">
+                  <Link to="/main/tasks"><i
+                    className="icon icon-check-square-o"/><IntlMessages
+                    id="sidebar.tasks"/></Link>
                 </Menu.Item>
-
-                <Menu.Item key="main/metrics">
-                  <Link to="/main/metrics"><i className="icon icon-apps"/>
-                    <IntlMessages id="sidebar.metrics"/></Link>
-                </Menu.Item>
-
-                <Menu.Item key="main/layouts">
-                  <Link to="/main/layouts"><i className="icon icon-card"/>
-                    <IntlMessages id="sidebar.layouts"/></Link>
-                </Menu.Item>
-
               </MenuItemGroup>
 
-              <MenuItemGroup key="in-built-apps" className="gx-menu-group"
-                             title={<IntlMessages id="sidebar.inBuiltApp"/>}>
-                <Menu.Item key="in-built-apps/mail">
-                  <Link to="/in-built-apps/mail"><i className="icon icon-email"/><IntlMessages
-                    id="sidebar.mailApp"/></Link>
+              <MenuItemGroup key="extensions" className="gx-menu-group"
+                             title={<IntlMessages id="sidebar.extensions"/>}>
+                <Menu.Item key="extensions/mail">
+                  <Link to="/extensions/mail"><i className="icon icon-email"/><IntlMessages
+                    id="sidebar.extensions.mail"/></Link>
                 </Menu.Item>
 
-                <Menu.Item key="in-built-apps/todo">
-                  <Link to="/in-built-apps/todo"><i
-                    className="icon icon-check-square-o"/><IntlMessages
-                    id="sidebar.todoApp"/></Link>
-                </Menu.Item>
-
-                <Menu.Item key="in-built-apps/contacts">
-                  <Link to="/in-built-apps/contacts"><i className="icon icon-contacts"/><IntlMessages
-                    id="sidebar.contactsApp"/></Link>
-                </Menu.Item>
-
-                <Menu.Item key="in-built-apps/chat">
-                  <Link to="/in-built-apps/chat"><i
-                    className="icon icon-chat-bubble -flex-column-reverse"/><IntlMessages
-                    id="sidebar.chatApp"/></Link>
-                </Menu.Item>
-
-                <Menu.Item key="main/notes">
-                  <Link to="/in-built-apps/notes"><i className="icon icon-copy"/>
-                    <IntlMessages id="sidebar.notes"/></Link>
-                </Menu.Item>
-
-                <Menu.Item key="main/algolia">
-                  <Link to="/main/algolia"><i className="icon icon-shopping-cart "/>
-                    <IntlMessages id="sidebar.algolia"/></Link>
-                </Menu.Item>
-
-                <Menu.Item key="in-built-apps/firebase-crud">
-                  <Link to="/in-built-apps/firebase-crud"><i
-                    className="icon icon-icon"/><IntlMessages
-                    id="sidebar.crud"/></Link>
-                </Menu.Item>
               </MenuItemGroup>
 
               <MenuItemGroup key="components" className="gx-menu-group" title={<IntlMessages id="sidebar.components"/>}>
@@ -451,87 +409,6 @@ class SidebarContent extends Component {
                         id="sidebar.view.dataTable"/></Link>
                   </Menu.Item>
                 </SubMenu>
-
-              </MenuItemGroup>
-
-              <MenuItemGroup key="extraComponents" className="gx-menu-group"
-                             title={<IntlMessages id="sidebar.extraComponents"/>}>
-
-                <SubMenu key="editor" className={this.getNavStyleSubMenuClass(navStyle)}
-                         title={<span>
-                         <i className="icon icon-editor"/>
-                        <IntlMessages id="sidebar.editors"/>
-                       </span>}>
-                  <Menu.Item key="extra-components/editor/ck">
-                    <Link to="/extra-components/editor/ck">
-                      <IntlMessages
-                        id="sidebar.editors.CKEditor"/></Link>
-                  </Menu.Item>
-                  <Menu.Item key="extra-components/editor/wysiswyg">
-                    <Link to="/extra-components/editor/wysiswyg">
-                      <IntlMessages
-                        id="sidebar.editors.WYSISWYGEditor"/></Link>
-                  </Menu.Item>
-                </SubMenu>
-
-                <Menu.Item key="extra-components/color-picker">
-                  <Link to="/extra-components/color-picker">
-                    <i className="icon icon-picker"/>
-
-                    <IntlMessages id="sidebar.pickers.colorPickers"/>
-
-                  </Link>
-                </Menu.Item>
-
-                <Menu.Item key="extra-components/dnd">
-                  <Link to="/extra-components/dnd">
-                    <i className="icon icon-drag-and-drop"/>
-
-                    <IntlMessages id="sidebar.extensions.dragNDrop"/>
-
-                  </Link>
-                </Menu.Item>
-
-                <Menu.Item key="extra-components/sweet-alert">
-                  <Link to="/extra-components/sweet-alert">
-                    <i className="icon icon-sweet-alert"/>
-
-                    <IntlMessages id="sidebar.extensions.sweetAlert"/>
-
-                  </Link>
-                </Menu.Item>
-
-                <Menu.Item key="extra-components/notification">
-                  <Link to="/extra-components/notification"><i className="icon icon-notification"/>
-                    <IntlMessages
-                      id="sidebar.extensions.notification"/></Link>
-                </Menu.Item>
-
-                <SubMenu key="time-line" className={this.getNavStyleSubMenuClass(navStyle)}
-                         title={<span><i className="icon icon-timeline"/><IntlMessages
-                           id="sidebar.timeLine"/></span>}>
-                  <Menu.Item key="extra-components/time-line/default">
-                    <Link to="/extra-components/time-line/default">
-                      <IntlMessages
-                        id="sidebar.timeLine.default"/></Link>
-                  </Menu.Item>
-                  <Menu.Item key="extra-components/time-line/default-with-icon">
-                    <Link to="/extra-components/time-line/default-with-icon">
-                      <IntlMessages
-                        id="sidebar.timeLine.defaultwithIcons"/></Link>
-                  </Menu.Item>
-                  <Menu.Item key="extra-components/time-line/left-align">
-                    <Link to="/extra-components/time-line/left-align">
-                      <IntlMessages
-                        id="sidebar.timeLine.leftAligned"/></Link>
-                  </Menu.Item>
-                </SubMenu>
-
-                <Menu.Item key="extra-components/shuffle">
-                  <Link to="/extra-components/shuffle"><i className="icon icon-shuffle"/>
-                    <IntlMessages
-                      id="sidebar.extensions.shuffle"/></Link>
-                </Menu.Item>
 
               </MenuItemGroup>
 
