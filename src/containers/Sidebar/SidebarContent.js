@@ -71,13 +71,6 @@ class SidebarContent extends Component {
                       <IntlMessages id="sidebar.dashboard.crypto"/>
                     </Link>
                   </Menu.Item>
-
-                  <Menu.Item key="main/dashboard/listing">
-                    <Link to="/main/dashboard/listing">
-                      <i className="icon icon-listing-dbrd"/>
-                      <IntlMessages id="sidebar.dashboard.listing"/>
-                    </Link>
-                  </Menu.Item>
                 </SubMenu>
 
                 <Menu.Item key="social-apps/wall">
