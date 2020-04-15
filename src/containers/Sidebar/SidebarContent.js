@@ -79,6 +79,14 @@ class SidebarContent extends Component {
                     className="icon icon-check-square-o"/><IntlMessages
                     id="sidebar.tasks"/></Link>
                 </Menu.Item>
+
+                <Menu.Item key="main/customers">
+                  <Link to="/main/customers">
+                    <i className="icon icon-contacts -flex-column-reverse"/>
+                    <IntlMessages id="sidebar.customers"/>
+                  </Link>
+                </Menu.Item>
+
               </MenuItemGroup>
 
               <MenuItemGroup key="extensions" className="gx-menu-group"

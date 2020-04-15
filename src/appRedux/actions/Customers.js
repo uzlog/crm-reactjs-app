@@ -16,7 +16,7 @@ export const onGetCustomers = () => {
 
     dispatch({
       type: GET_ALL_CUSTOMERS_SUCCESS,
-      payload: response.data
+      payload: response.data.data
     });
   }
 };
