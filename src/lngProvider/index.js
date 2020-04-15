@@ -10,6 +10,7 @@ const AppLocale = {
   fr: frLang,
   vi: viLang
 };
+
 addLocaleData(AppLocale.en.data);
 addLocaleData(AppLocale.zh.data);
 addLocaleData(AppLocale.fr.data);
