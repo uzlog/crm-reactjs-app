@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { Table, Dropdown, Menu, Button } from "antd";
 import { onGetCustomers } from "../../../appRedux/actions";
 import {connect} from "react-redux";
+import CustomerTable from "./CustomerTable";
 
 class Customers extends Component {
 
@@ -22,7 +23,7 @@ class Customers extends Component {
       filterOption: 'All customers',
       allCustomers: [],
       customerList: [],
-      selectedCustomer: null,
+      selectedCustomers: [],
       addCustomerState: false,
     }
   }
@@ -44,16 +45,14 @@ class Customers extends Component {
 
   render() {
     return (
-      <div>
-
-      </div>
+      <CustomerTable customerList={this.props.customerList} />
     );
   }
 }
 
 const mapStateToProps = ({customers}) => {
-  const {customerList, selectedCustomer} = customers;
-  return {customerList, selectedCustomer};
+  const {customerList, selectedCustomers} = customers;
+  return {customerList, selectedCustomers};
 };
 
 export default connect(mapStateToProps, {

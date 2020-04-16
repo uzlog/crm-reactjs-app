@@ -4,7 +4,7 @@ import {
 
 const INIT_STATE = {
   customerList: [],
-  selectedCustomer: []
+  selectedCustomers: []
 };
 
 export default (state = INIT_STATE, action) => {
@@ -14,7 +14,7 @@ export default (state = INIT_STATE, action) => {
       console.log(action.payload);
       return {
         ...state,
-        customerList: action.payload
+        customerList: action.payload.result
       };
     }
 
