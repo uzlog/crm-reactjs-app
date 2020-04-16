@@ -1,13 +1,7 @@
 import React from "react";
-import {Card, Table, Button, Dropdown, Icon, Menu} from "antd";
+import {Card, Table, Button} from "antd";
 import log from '../../../util/Log';
-
-const ACTION_MENU = (
-  <Menu>
-    <Menu.Item key="01">Edit</Menu.Item>
-    <Menu.Item key="02">Delete</Menu.Item>
-  </Menu>
-);
+import IntlMessages from "../../../util/IntlMessages";
 
 const columns = [
   {
@@ -21,26 +15,12 @@ const columns = [
   {
     title: 'Email',
     dataIndex: 'email'
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    width: 120,
-    render: (text, record) => (
-        <span className="customer-operation">
-          <Dropdown overlay={ACTION_MENU}>
-            <Button>
-              Action <Icon type="down"/>
-            </Button>
-          </Dropdown>
-        </span>
-      )
   }
 ];
 
 class CustomerTable extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       selectedCustomerKeys: []
     };
@@ -98,10 +78,30 @@ class CustomerTable extends React.Component {
 
     return (
       <Card title="Customer Table">
+        <div className="table-operations">
+          <Button className="ant-btn" type="primary" aria-label="add"
+                  onClick={this.onAddContact}>
+            <i className="icon icon-add gx-mr-2"/>
+            <IntlMessages id="actions.add.customer"/>
+          </Button>
+
+          <Button className="ant-btn" type="primary" aria-label="add"
+                  onClick={this.onAddContact}>
+            <i className="icon icon-edit gx-mr-2"/>
+            <IntlMessages id="actions.edit"/>
+          </Button>
+
+          <Button className="ant-btn" type="primary" aria-label="add"
+                  onClick={this.onAddContact}>
+            <i className="icon icon-trash gx-mr-2"/>
+            <IntlMessages id="actions.delete"/>
+          </Button>
+        </div>
         <Table className="gx-table-responsive" rowSelection={rowSelection} columns={columns} dataSource={customerList} />
       </Card>
     );
   }
+
 }
 
 export default CustomerTable;

@@ -270,5 +270,8 @@
   "appearance.colors.preset": "Bảng màu cài sẵn",
   "appearance.colors.customize": "Tùy chỉnh",
   "appearance.nav": "KIỂU ĐIỀU HƯỚNG",
-  "appearance.layout": "BỐ CỤC"
+  "appearance.layout": "BỐ CỤC",
+  "actions.delete": "Xóa",
+  "actions.edit": "Sửa",
+  "actions.add.customer": "Thêm Khách Hàng"
 }

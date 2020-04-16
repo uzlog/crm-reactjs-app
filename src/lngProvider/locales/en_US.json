@@ -273,5 +273,8 @@
   "appearance.colors.customize": "Customize",
   "appearance.nav": "NAV STYLE",
   "appearance.layout": "LAYOUT",
-  "vchain": "V-Chain"
+  "vchain": "V-Chain",
+  "actions.delete": "Delete",
+  "actions.edit": "Edit",
+  "actions.add.customer": "Add Customer"
 }
