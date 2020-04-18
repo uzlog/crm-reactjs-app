@@ -1,7 +1,9 @@
 import React from "react";
 import {Avatar, Input, Modal} from "antd";
-
 import IntlMessages from "../../../util/IntlMessages";
+
+import {logout} from "../../../util/Debug";
+
 
 const thumb = require('assets/images/placeholder.jpg');
 
@@ -32,11 +34,12 @@ class AddCustomer extends React.Component{
         visible={open}
         closable={false}
         onOk={() => {
-          if (name === ''){
+          if (name === ''){   // if name is empty, then does not close modal
             return;
           }
 
           onUserClose();
+          logout(this.state);
           onSaveUser(
             userKey,
             {

@@ -1,10 +1,13 @@
 import {
   FETCH_START,
   FETCH_SUCCESS,
-  GET_ALL_CUSTOMERS_SUCCESS
+  GET_ALL_CUSTOMERS_SUCCESS,
+  LOADING,
+  ON_ADD_CUSTOMER_SUCCESS
 } from "../../constants/ActionTypes";
 
 import { USER_API } from "../../util/ApiCalling";
+import {logout, sleep} from "../../util/Debug";
 
 
 export const onGetCustomers = () => {
@@ -22,7 +25,14 @@ export const onGetCustomers = () => {
 };
 
 export const onAddCustomer = (user) => {
+  return async (dispatch) => {
+    dispatch({type: LOADING});
 
+    logout(user);
+    await sleep(1000);
+
+    dispatch({type: ON_ADD_CUSTOMER_SUCCESS});
+  }
 };
 
 export const onUpdateCustomer = (id, data) => {

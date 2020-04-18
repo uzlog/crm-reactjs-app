@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 // import CustomerTable from "./CustomerTable";
 import {Button, Card, Table} from "antd";
 import IntlMessages from "../../../util/IntlMessages";
-import log from "../../../util/Log";
+import {logout} from "../../../util/Debug";
 import AddCustomer from "./AddCustomer";
 
 let userId = 73434;
@@ -45,8 +45,8 @@ class Customers extends Component {
       allCustomers: [],
       customerList: [],
       selectedCustomers: [],
-      addCustomerState: false,
-    }
+      addCustomerState: false
+    };
   }
 
   componentDidMount() {
@@ -64,7 +64,7 @@ class Customers extends Component {
   }
 
   onSelectChange = (selectedCustomerKeys) => {
-    log("selected customer keys: ", selectedCustomerKeys);
+    // log("selected customer keys: ", selectedCustomerKeys);
     this.setState({selectedCustomerKeys});
   };
 
@@ -77,8 +77,10 @@ class Customers extends Component {
   };
 
   onSaveCustomer = (id, data) => {
+    this.setState({loading: true});
     if (id) this.props.onUpdateCustomer(id, data);
-    else this.props.onAddCustomer();
+    else this.props.onAddCustomer(data);
+    this.setState({loading: false});
   };
 
   render() {
@@ -148,14 +150,18 @@ class Customers extends Component {
               <IntlMessages id="actions.delete"/>
             </Button>
           </div>
-          <Table className="gx-table-responsive" rowSelection={rowSelection} columns={columns}
-                 dataSource={customerList}/>
+          <Table
+            className="gx-table-responsive"
+            loading={this.props.loading}
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={customerList}/>
         </Card>
 
         <AddCustomer
           open={addCustomerState}
           user={{
-            'id': userId,
+            'id': userId++,
             'name': '',
             'email': '',
             'phone': ''
@@ -169,8 +175,8 @@ class Customers extends Component {
 }
 
 const mapStateToProps = ({customers}) => {
-  const {customerList, selectedCustomers} = customers;
-  return {customerList, selectedCustomers};
+  const {customerList, selectedCustomers, loading} = customers;
+  return {customerList, selectedCustomers, loading};
 };
 
 export default connect(mapStateToProps, {
