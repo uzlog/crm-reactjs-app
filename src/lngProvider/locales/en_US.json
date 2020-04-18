@@ -276,5 +276,6 @@
   "vchain": "V-Chain",
   "actions.delete": "Delete",
   "actions.edit": "Edit",
+  "actions.edit.customer": "Edit Customer",
   "actions.add.customer": "Add Customer"
 }

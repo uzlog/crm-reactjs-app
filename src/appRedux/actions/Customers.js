@@ -20,3 +20,11 @@ export const onGetCustomers = () => {
     });
   }
 };
+
+export const onAddCustomer = (user) => {
+
+};
+
+export const onUpdateCustomer = (id, data) => {
+
+};
