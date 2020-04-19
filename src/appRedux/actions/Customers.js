@@ -3,11 +3,13 @@ import {
   FETCH_SUCCESS,
   GET_ALL_CUSTOMERS_SUCCESS,
   LOADING,
-  ON_ADD_CUSTOMER_SUCCESS
+  ON_ADD_CUSTOMER_SUCCESS,
+  ON_ADD_CUSTOMER_FAIL
 } from "../../constants/ActionTypes";
 
-import { USER_API } from "../../util/ApiCalling";
+import { USER_API, FAIL} from "../../util/ApiCalling";
 import {logout, sleep} from "../../util/Debug";
+import {message} from "antd";
 
 
 export const onGetCustomers = () => {
@@ -31,7 +33,21 @@ export const onAddCustomer = (user) => {
     logout('add user: ', user);
     await sleep(1500);
 
-    dispatch({type: ON_ADD_CUSTOMER_SUCCESS});
+    const response = await USER_API.post('users', user);
+
+    logout(response);
+    if (response.data.status === FAIL){
+      message.error(response.data.data.message);
+      dispatch({type: ON_ADD_CUSTOMER_FAIL});
+    }
+    else {
+      message.success('Create customer successfully');
+      dispatch({
+        type: ON_ADD_CUSTOMER_SUCCESS,
+        payload: user
+      });
+    }
+
   }
 };
 

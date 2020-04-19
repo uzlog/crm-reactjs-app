@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {onGetCustomers, onAddCustomer, onUpdateCustomer} from "../../../appRedux/actions";
 import {connect} from "react-redux";
 // import CustomerTable from "./CustomerTable";
-import {Button, Card, Table} from "antd";
+import {Button, Card, Table, message} from "antd";
 import IntlMessages from "../../../util/IntlMessages";
 import {logout} from "../../../util/Debug";
 import AddCustomer from "./AddCustomer";
@@ -45,7 +45,8 @@ class Customers extends Component {
       allCustomers: [],
       customerList: [],
       selectedCustomers: [],
-      addCustomerState: false
+      selectedCustomer: {},
+      addCustomerState: false   // to open modal to create or update customer
     };
   }
 
@@ -63,13 +64,20 @@ class Customers extends Component {
     }
   }
 
-  onSelectChange = (selectedCustomerKeys) => {
+  onSelectChange = (selectedCustomers) => {
     // log("selected customer keys: ", selectedCustomerKeys);
-    this.setState({selectedCustomerKeys});
+    this.setState({selectedCustomers});
   };
 
   onAddCustomer = () => {
     this.setState({addCustomerState: true});
+  };
+
+  onUpdateCustomer = () => {
+    logout(this.state.selectedCustomers);
+    if (this.state.selectedCustomers.length !== 1){
+      message.error('Please select one!')
+    }
   };
 
   onCustomerClose = () => {
@@ -95,7 +103,7 @@ class Customers extends Component {
         text: 'Select All Data',
         onSelect: () => {
           this.setState({
-            selectedCustomerKeys: [...Array(46).keys()], // 0...45
+            selectedCustomers: [...Array(46).keys()], // 0...45
           });
         },
       }, {
@@ -109,7 +117,7 @@ class Customers extends Component {
             }
             return true;
           });
-          this.setState({selectedCustomerKeys: newSelectedRowKeys});
+          this.setState({selectedCustomers: newSelectedRowKeys});
         },
       }, {
         key: 'even',
@@ -122,7 +130,7 @@ class Customers extends Component {
             }
             return false;
           });
-          this.setState({selectedCustomerKeys: newSelectedRowKeys});
+          this.setState({selectedCustomers: newSelectedRowKeys});
         },
       }],
       onSelection: this.onSelection,
@@ -139,7 +147,7 @@ class Customers extends Component {
             </Button>
 
             <Button className="ant-btn" aria-label="add"
-                    onClick={this.onAddContact}>
+                    onClick={this.onUpdateCustomer}>
               <i className="icon icon-edit gx-mr-2"/>
               <IntlMessages id="actions.edit"/>
             </Button>
@@ -160,12 +168,7 @@ class Customers extends Component {
 
         <AddCustomer
           open={addCustomerState}
-          user={{
-            'id': userId++,
-            'name': '',
-            'email': '',
-            'phone': ''
-          }}
+          user={this.state.selectedCustomer}
           onSaveUser={this.onSaveCustomer}
           onUserClose={this.onCustomerClose}
         />
