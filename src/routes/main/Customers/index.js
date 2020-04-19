@@ -92,7 +92,7 @@ class Customers extends Component {
   };
 
   render() {
-    const {customerList} = this.props;
+    const {customerList, currentPage, pageSize, total} = this.props;
     const {selectedCustomerKeys, addCustomerState} = this.state;
     const rowSelection = {
       selectedCustomerKeys,
@@ -133,8 +133,10 @@ class Customers extends Component {
           this.setState({selectedCustomers: newSelectedRowKeys});
         },
       }],
-      onSelection: this.onSelection,
+      onSelection: this.onSelection
     };
+
+    logout(currentPage, total);
 
     return (
       <div>
@@ -163,7 +165,13 @@ class Customers extends Component {
             loading={this.props.loading}
             rowSelection={rowSelection}
             columns={columns}
-            dataSource={customerList}/>
+            dataSource={customerList}
+            pagination={{
+              current: currentPage,
+              pageSize: pageSize,
+              total: total
+            }}
+          />
         </Card>
 
         <AddCustomer
@@ -178,8 +186,8 @@ class Customers extends Component {
 }
 
 const mapStateToProps = ({customers}) => {
-  const {customerList, selectedCustomers, loading} = customers;
-  return {customerList, selectedCustomers, loading};
+  const {customerList, selectedCustomers, loading, currentPage, pageSize, total} = customers;
+  return {customerList, selectedCustomers, loading, currentPage, pageSize, total};
 };
 
 export default connect(mapStateToProps, {

@@ -9,8 +9,10 @@ import {logout} from "../../util/Debug";
 const INIT_STATE = {
   customerList: [],
   selectedCustomers: [],
-  loading: false
-
+  loading: false,
+  currentPage: 1,
+  pageSize: 10,
+  total: 0      // total customers in the system, not total number of customers in the above customerList
 };
 
 export default (state = INIT_STATE, action) => {
@@ -25,13 +27,17 @@ export default (state = INIT_STATE, action) => {
 
     case GET_ALL_CUSTOMERS_SUCCESS:{
       console.log(action.payload);
-      let customerList = action.payload.result.map((val, index) => {
+      const {result, page, page_size, total_elements} = action.payload;
+      let customerList = result.map((val, index) => {
         return {key: index, ... val};
       });
       logout(customerList);
       return {
         ...state,
-        customerList: customerList
+        customerList: customerList,
+        currentPage: page,
+        pageSize: page_size,
+        total: total_elements
       };
     }
 

@@ -31,8 +31,6 @@ export const onAddCustomer = (user) => {
     dispatch({type: LOADING});
 
     logout('add user: ', user);
-    await sleep(1500);
-
     const response = await USER_API.post('users', user);
 
     logout(response);
