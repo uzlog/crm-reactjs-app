@@ -28,13 +28,13 @@ export const onAddCustomer = (user) => {
   return async (dispatch) => {
     dispatch({type: LOADING});
 
-    logout(user);
-    await sleep(1000);
+    logout('add user: ', user);
+    await sleep(1500);
 
     dispatch({type: ON_ADD_CUSTOMER_SUCCESS});
   }
 };
 
 export const onUpdateCustomer = (id, data) => {
-
+  logout('update user');
 };

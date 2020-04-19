@@ -12,19 +12,21 @@ class AddCustomer extends React.Component{
   constructor(props) {
     super(props);
 
-    const {id, name, phone, email} = props.user;
+    const {id, name, phone, email, username} = props.user;
     this.state = {
       id,
       name,
       phone,
-      email
+      email,
+      username
     }
   }
 
   render() {
     const {userKey, onSaveUser, onUserClose, open, user} = this.props;
-    const {id, name, phone, email} = this.state;
+    const {id, name, phone, email, username, password} = this.state;
 
+    // logout(username);
     return (
       <Modal
         title={user.name === '' ?
@@ -45,14 +47,17 @@ class AddCustomer extends React.Component{
             {
               'name': name,
               'email': email,
-              'phone': phone
+              'phone': phone,
+              'username': username,
+              'password': password
             }
           );
           this.setState({
             'id': id + 1,
             'name': '',
             'email': '',
-            'phone': ''
+            'phone': '',
+            'username': ''
           });
         }}
         onCancel={onUserClose}
@@ -63,6 +68,26 @@ class AddCustomer extends React.Component{
           </div>
 
           <div className="gx-modal-box-form-item">
+
+            <div className="gx-form-group">
+              <Input
+                placeholder="Username"
+                onChange={(event) => this.setState({username: event.target.value})}
+                value={username}
+                margin="normal"/>
+            </div>
+
+            {
+              !this.username ?
+                <div className="gx-form-group">
+                  <Input.Password
+                    placeholder="Password"
+                    onChange={(event) => this.setState({password: event.target.value})}
+                    value={password}
+                    margin="normal"/>
+                </div> : null
+            }
+
             <div className="gx-form-group">
               <Input
                 required
