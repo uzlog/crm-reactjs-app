@@ -4,6 +4,7 @@ import {
   ON_ADD_CUSTOMER_SUCCESS,
   ON_ADD_CUSTOMER_FAIL
 } from "../../constants/ActionTypes";
+import {logout} from "../../util/Debug";
 
 const INIT_STATE = {
   customerList: [],
@@ -24,9 +25,13 @@ export default (state = INIT_STATE, action) => {
 
     case GET_ALL_CUSTOMERS_SUCCESS:{
       console.log(action.payload);
+      let customerList = action.payload.result.map((val, index) => {
+        return {key: index, ... val};
+      });
+      logout(customerList);
       return {
         ...state,
-        customerList: action.payload.result
+        customerList: customerList
       };
     }
 
@@ -35,7 +40,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false,
-        customerList: [...state.customerList, action.payload]
+        customerList: [action.payload, ...state.customerList]
       };
     }
 
