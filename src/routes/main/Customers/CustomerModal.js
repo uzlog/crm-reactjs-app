@@ -12,9 +12,9 @@ class CustomerModal extends React.Component{
   constructor(props) {
     super(props);
 
-    const {id, name, phone, email, username} = props.user;
+    const {key, name, phone, email, username} = props.user;
     this.state = {
-      id,
+      key,
       name,
       phone,
       email,
@@ -23,10 +23,12 @@ class CustomerModal extends React.Component{
   }
 
   render() {
-    const {userKey, onSaveUser, onUserClose, open, user, edit} = this.props;
-    const {id, name, phone, email, username, password} = this.state;
+    const {onSaveUser, onUserClose, open, edit} = this.props;
+    const {key, name, phone, email, username, password} = edit ? this.props.customerList[this.props.selectedCustomers[0]] : this.state;
 
-    // logout(username);
+    // logout('customer: ', this.props.selectedCustomers[0]);
+    // logout(this.props.customerList[this.props.selectedCustomers[0]]);
+    // logout({key, name, phone, email, username, password});
     return (
       <Modal
         title={edit ?
@@ -44,7 +46,7 @@ class CustomerModal extends React.Component{
           onUserClose();
           logout(this.state);
           onSaveUser(
-            userKey,
+            edit,
             {
               'name': name,
               'email': email,
@@ -54,7 +56,7 @@ class CustomerModal extends React.Component{
             }
           );
           this.setState({
-            'id': id + 1,
+            'key': key + 1,
             'name': '',
             'email': '',
             'phone': '',
@@ -102,7 +104,7 @@ class CustomerModal extends React.Component{
               <Input
                 placeholder="Email"
                 onChange={(event) => this.setState({email: event.target.value})}
-                value={email}
+                defaultValue={email}
                 margin="normal"/>
             </div>
 
@@ -110,7 +112,7 @@ class CustomerModal extends React.Component{
               <Input
                 placeholder="Phone"
                 onChange={(event) => this.setState({phone: event.target.value})}
-                value={phone}
+                defaultValue={phone}
                 margin="normal"
               />
             </div>

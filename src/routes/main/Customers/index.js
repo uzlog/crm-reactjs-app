@@ -74,12 +74,12 @@ class Customers extends Component {
   };
 
   onUpdateCustomer = () => {
-    logout(this.state.selectedCustomers);
-    if (this.state.selectedCustomers.length !== 1){
+    let selectedCustomers = this.state.selectedCustomers;
+    if (selectedCustomers.length !== 1){
       message.error('Please select one!')
     }
     else {
-      this.props.onUpdateSelectedCustomer();
+      this.props.onUpdateSelectedCustomer(selectedCustomers);
       this.setState({openModal: true});
     }
   };
@@ -88,10 +88,9 @@ class Customers extends Component {
     this.setState({openModal: false});
   };
 
-  onSaveCustomer = (id, data) => {
+  onSaveCustomer = (edit, data) => {
     this.setState({loading: true});
-    if (id) this.props.onUpdateCustomer(id, data);
-    else this.props.onAddCustomer(data);
+    edit ? this.props.onUpdateCustomer(data): this.props.onAddCustomer(data);
     this.setState({loading: false});
   };
 
@@ -179,10 +178,11 @@ class Customers extends Component {
         <CustomerModal
           open={openModal}
           user={{
-            'id': userId++,
+            'key': userId++,
             'name': '',
             'email': '',
-            'phone': ''
+            'phone': '',
+            'username': ''
           }}
           onSaveUser={this.onSaveCustomer}
           onUserClose={this.onCustomerClose}

@@ -49,12 +49,13 @@ export const onAddCustomer = (user) => {
   }
 };
 
-export const onUpdateCustomer = (id, data) => {
+export const onUpdateCustomer = (data) => {
   logout('update user');
 };
 
 export const onUpdateSelectedCustomer = (selectedCustomers) => {
   return async (dispatch) => {
+    logout('action: ', selectedCustomers);
     dispatch({
       type: ON_UPDATE_SELECTED_CUSTOMER,
       payload: selectedCustomers
