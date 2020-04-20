@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {Button, Card, Table, message} from "antd";
 import IntlMessages from "../../../util/IntlMessages";
 import {logout} from "../../../util/Debug";
-import AddCustomer from "./AddCustomer";
+import CustomerModal from "./CustomerModal";
 
 let userId = 73434;
 
@@ -46,7 +46,7 @@ class Customers extends Component {
       customerList: [],
       selectedCustomers: [],
       selectedCustomer: {},
-      addCustomerState: false   // to open modal to create or update customer
+      openModal: false   // to open modal to create or update customer
     };
   }
 
@@ -70,7 +70,7 @@ class Customers extends Component {
   };
 
   onAddCustomer = () => {
-    this.setState({addCustomerState: true});
+    this.setState({openModal: true});
   };
 
   onUpdateCustomer = () => {
@@ -81,7 +81,7 @@ class Customers extends Component {
   };
 
   onCustomerClose = () => {
-    this.setState({addCustomerState: false});
+    this.setState({openModal: false});
   };
 
   onSaveCustomer = (id, data) => {
@@ -93,7 +93,7 @@ class Customers extends Component {
 
   render() {
     const {customerList, currentPage, pageSize, total} = this.props;
-    const {selectedCustomerKeys, addCustomerState} = this.state;
+    const {selectedCustomerKeys, openModal} = this.state;
     const rowSelection = {
       selectedCustomerKeys,
       onChange: this.onSelectChange,
@@ -174,8 +174,8 @@ class Customers extends Component {
           />
         </Card>
 
-        <AddCustomer
-          open={addCustomerState}
+        <CustomerModal
+          open={openModal}
           user={this.state.selectedCustomer}
           onSaveUser={this.onSaveCustomer}
           onUserClose={this.onCustomerClose}

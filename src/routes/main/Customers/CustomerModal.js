@@ -7,7 +7,7 @@ import {logout} from "../../../util/Debug";
 
 const thumb = require('assets/images/placeholder.jpg');
 
-class AddCustomer extends React.Component{
+class CustomerModal extends React.Component{
 
   constructor(props) {
     super(props);
@@ -120,4 +120,4 @@ class AddCustomer extends React.Component{
   }
 }
 
-export default AddCustomer;
+export default CustomerModal;
