@@ -163,6 +163,13 @@ class CustomerModal extends React.Component {
         onCancel={() => {
           this.props.form.resetFields();
           onUserClose();
+          this.setState({
+            'key': key + 1,
+            'name': '',
+            'email': '',
+            'phone': '',
+            'username': ''
+          });
         }}
       >
         <Form>

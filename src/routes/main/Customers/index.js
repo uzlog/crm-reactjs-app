@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {onGetCustomers, onAddCustomer, onUpdateCustomer, onUpdateSelectedCustomer} from "../../../appRedux/actions";
+import {onGetCustomers, onAddCustomer, onUpdateCustomer, onUpdateSelectedCustomer, onCloseModal} from "../../../appRedux/actions";
 import {connect} from "react-redux";
 // import CustomerTable from "./CustomerTable";
 import {Button, Card, Table, message} from "antd";
@@ -86,6 +86,7 @@ class Customers extends Component {
 
   onCustomerClose = () => {
     this.setState({openModal: false});
+    this.props.onCloseModal();
   };
 
   onSaveCustomer = (edit, data) => {
@@ -201,5 +202,6 @@ export default connect(mapStateToProps, {
   onGetCustomers,
   onAddCustomer,
   onUpdateCustomer,
-  onUpdateSelectedCustomer
+  onUpdateSelectedCustomer,
+  onCloseModal
 })(Customers);

@@ -5,7 +5,7 @@ import {
   LOADING,
   ON_ADD_CUSTOMER_SUCCESS,
   ON_ADD_CUSTOMER_FAIL,
-  ON_UPDATE_SELECTED_CUSTOMER
+  ON_UPDATE_SELECTED_CUSTOMER, ON_CLOSE_MODAL
 } from "../../constants/ActionTypes";
 
 import { USER_API, FAIL} from "../../util/ApiCalling";
@@ -61,5 +61,12 @@ export const onUpdateSelectedCustomer = (selectedCustomers) => {
       payload: selectedCustomers
     });
   };
+};
+
+export const onCloseModal = () => {
+  return async (dispatch) => {
+    logout('close modal');
+    dispatch({type: ON_CLOSE_MODAL});
+  }
 };
 
