@@ -2,7 +2,8 @@ import {
   GET_ALL_CUSTOMERS_SUCCESS,
   LOADING,
   ON_ADD_CUSTOMER_SUCCESS,
-  ON_ADD_CUSTOMER_FAIL
+  ON_ADD_CUSTOMER_FAIL,
+  ON_UPDATE_SELECTED_CUSTOMER
 } from "../../constants/ActionTypes";
 import {logout} from "../../util/Debug";
 
@@ -12,7 +13,8 @@ const INIT_STATE = {
   loading: false,
   currentPage: 1,
   pageSize: 10,
-  total: 0      // total customers in the system, not total number of customers in the above customerList
+  total: 0,      // total customers in the system, not total number of customers in the above customerList
+  edit: false
 };
 
 export default (state = INIT_STATE, action) => {
@@ -29,7 +31,7 @@ export default (state = INIT_STATE, action) => {
       console.log(action.payload);
       const {result, page, page_size, total_elements} = action.payload;
       let customerList = result.map((val, index) => {
-        return {key: index, ... val};
+        return {key: index, ...val};
       });
       logout(customerList);
       return {
@@ -54,6 +56,14 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false
+      };
+    }
+
+    case ON_UPDATE_SELECTED_CUSTOMER:{
+      return {
+        ...state,
+        selectedCustomers: action.payload,
+        edit: true
       };
     }
 

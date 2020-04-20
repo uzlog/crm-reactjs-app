@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {onGetCustomers, onAddCustomer, onUpdateCustomer} from "../../../appRedux/actions";
+import {onGetCustomers, onAddCustomer, onUpdateCustomer, onUpdateSelectedCustomer} from "../../../appRedux/actions";
 import {connect} from "react-redux";
 // import CustomerTable from "./CustomerTable";
 import {Button, Card, Table, message} from "antd";
@@ -78,6 +78,10 @@ class Customers extends Component {
     if (this.state.selectedCustomers.length !== 1){
       message.error('Please select one!')
     }
+    else {
+      this.props.onUpdateSelectedCustomer();
+      this.setState({openModal: true});
+    }
   };
 
   onCustomerClose = () => {
@@ -136,8 +140,6 @@ class Customers extends Component {
       onSelection: this.onSelection
     };
 
-    logout(currentPage, total);
-
     return (
       <div>
         <Card title="Customer Table">
@@ -176,7 +178,12 @@ class Customers extends Component {
 
         <CustomerModal
           open={openModal}
-          user={this.state.selectedCustomer}
+          user={{
+            'id': userId++,
+            'name': '',
+            'email': '',
+            'phone': ''
+          }}
           onSaveUser={this.onSaveCustomer}
           onUserClose={this.onCustomerClose}
         />
@@ -193,5 +200,6 @@ const mapStateToProps = ({customers}) => {
 export default connect(mapStateToProps, {
   onGetCustomers,
   onAddCustomer,
-  onUpdateCustomer
+  onUpdateCustomer,
+  onUpdateSelectedCustomer
 })(Customers);

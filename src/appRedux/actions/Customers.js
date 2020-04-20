@@ -4,11 +4,12 @@ import {
   GET_ALL_CUSTOMERS_SUCCESS,
   LOADING,
   ON_ADD_CUSTOMER_SUCCESS,
-  ON_ADD_CUSTOMER_FAIL
+  ON_ADD_CUSTOMER_FAIL,
+  ON_UPDATE_SELECTED_CUSTOMER
 } from "../../constants/ActionTypes";
 
 import { USER_API, FAIL} from "../../util/ApiCalling";
-import {logout, sleep} from "../../util/Debug";
+import {logout} from "../../util/Debug";
 import {message} from "antd";
 
 
@@ -45,10 +46,19 @@ export const onAddCustomer = (user) => {
         payload: user
       });
     }
-
   }
 };
 
 export const onUpdateCustomer = (id, data) => {
   logout('update user');
 };
+
+export const onUpdateSelectedCustomer = (selectedCustomers) => {
+  return async (dispatch) => {
+    dispatch({
+      type: ON_UPDATE_SELECTED_CUSTOMER,
+      payload: selectedCustomers
+    });
+  };
+};
+

@@ -1,7 +1,7 @@
 import React from "react";
 import {Avatar, Input, Modal} from "antd";
 import IntlMessages from "../../../util/IntlMessages";
-
+import {connect} from "react-redux";
 import {logout} from "../../../util/Debug";
 
 
@@ -23,15 +23,16 @@ class CustomerModal extends React.Component{
   }
 
   render() {
-    const {userKey, onSaveUser, onUserClose, open, user} = this.props;
+    const {userKey, onSaveUser, onUserClose, open, user, edit} = this.props;
     const {id, name, phone, email, username, password} = this.state;
 
     // logout(username);
     return (
       <Modal
-        title={user.name === '' ?
-        <IntlMessages id="actions.add.customer"/> :
-        <IntlMessages id="actions.edit.customer"/>}
+        title={edit ?
+          <IntlMessages id="actions.edit.customer"/> :
+          <IntlMessages id="actions.add.customer"/>
+        }
         toggle={onUserClose}
         visible={open}
         closable={false}
@@ -78,7 +79,7 @@ class CustomerModal extends React.Component{
             </div>
 
             {
-              !this.username ?
+              !edit ?
                 <div className="gx-form-group">
                   <Input.Password
                     placeholder="Password"
@@ -120,4 +121,13 @@ class CustomerModal extends React.Component{
   }
 }
 
-export default CustomerModal;
+const mapStateToProps = ({customers}) => {
+  const {customerList, selectedCustomers, edit} = customers;
+  return {customerList, selectedCustomers, edit};
+};
+
+
+
+export default connect(mapStateToProps, {
+
+})(CustomerModal);
