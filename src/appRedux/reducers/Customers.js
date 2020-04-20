@@ -3,7 +3,7 @@ import {
   LOADING,
   ON_ADD_CUSTOMER_SUCCESS,
   ON_ADD_CUSTOMER_FAIL,
-  ON_UPDATE_SELECTED_CUSTOMER, ON_CLOSE_MODAL
+  ON_UPDATE_SELECTED_CUSTOMER, ON_CLOSE_MODAL, UPDATE_CUSTOMER_SUCCESS, UPDATE_CUSTOMER_FAIL
 } from "../../constants/ActionTypes";
 import {logout} from "../../util/Debug";
 
@@ -68,6 +68,27 @@ export default (state = INIT_STATE, action) => {
     }
 
     case ON_CLOSE_MODAL:{
+      return {
+        ...state,
+        selectedCustomers: [],
+        edit: false
+      }
+    }
+
+    case UPDATE_CUSTOMER_SUCCESS:{
+      const key = action.payload.key;
+      state.customerList[key] = {...state.customerList[key], ...action.payload};
+      const newCustomerList = state.customerList;
+
+      return {
+        ...state,
+        customerList: newCustomerList,
+        selectedCustomers: [],
+        edit: false
+      }
+    }
+
+    case UPDATE_CUSTOMER_FAIL:{
       return {
         ...state,
         selectedCustomers: [],

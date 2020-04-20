@@ -5,7 +5,7 @@ import {
   LOADING,
   ON_ADD_CUSTOMER_SUCCESS,
   ON_ADD_CUSTOMER_FAIL,
-  ON_UPDATE_SELECTED_CUSTOMER, ON_CLOSE_MODAL
+  ON_UPDATE_SELECTED_CUSTOMER, ON_CLOSE_MODAL, UPDATE_CUSTOMER_SUCCESS, UPDATE_CUSTOMER_FAIL
 } from "../../constants/ActionTypes";
 
 import { USER_API, FAIL} from "../../util/ApiCalling";
@@ -31,7 +31,7 @@ export const onAddCustomer = (user) => {
   return async (dispatch) => {
     dispatch({type: LOADING});
 
-    logout('add user: ', user);
+    // logout('add user: ', user);
     const response = await USER_API.post('users', user);
 
     logout(response);
@@ -49,8 +49,22 @@ export const onAddCustomer = (user) => {
   }
 };
 
-export const onUpdateCustomer = (data) => {
-  logout('update user');
+export const onUpdateCustomer = (id, data) => {
+
+  return async (dispatch) => {
+    logout('update user: ' + id + ' with data: ' + data);
+    const response = await USER_API.put('users/' + id, data);
+    if (response.data.status === FAIL){
+      message.error(response.data.data.message);
+      dispatch({
+        type: UPDATE_CUSTOMER_FAIL
+      })
+    }
+    dispatch({
+      type: UPDATE_CUSTOMER_SUCCESS,
+      payload: data
+    });
+  }
 };
 
 export const onUpdateSelectedCustomer = (selectedCustomers) => {

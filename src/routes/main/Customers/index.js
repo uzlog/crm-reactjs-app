@@ -91,7 +91,15 @@ class Customers extends Component {
 
   onSaveCustomer = (edit, data) => {
     this.setState({loading: true});
-    edit ? this.props.onUpdateCustomer(data): this.props.onAddCustomer(data);
+
+    if (edit) {
+      this.props.onUpdateCustomer(this.props.customerList[data.key]._id, data);
+    }
+    else {
+      data = {...data, key: data.key++};
+      this.props.onAddCustomer(data);
+    }
+
     this.setState({loading: false});
   };
 

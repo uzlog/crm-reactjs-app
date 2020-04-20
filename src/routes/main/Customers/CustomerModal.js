@@ -142,13 +142,12 @@ class CustomerModal extends React.Component {
         onOk={() => {
           this.props.form.validateFields()
             .then(value => {
-              logout(value);
               this.props.form.resetFields();
               onUserClose();
-              logout(this.state);
+              logout(value);
               onSaveUser(
                 edit,
-                value
+                {key: key, ...value}
               );
               this.setState({
                 'key': key + 1,
