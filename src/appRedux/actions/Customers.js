@@ -54,7 +54,7 @@ export const onAddCustomer = (user) => {
 export const onUpdateCustomer = (id, data) => {
 
   return async (dispatch) => {
-    logout(data);
+    // logout(data);
     const response = await USER_API.put('users/' + id, data);
     if (response.data.status === FAIL){
       message.error(response.data.data.message);

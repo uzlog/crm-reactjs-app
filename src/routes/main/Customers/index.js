@@ -16,23 +16,24 @@ class Customers extends Component {
   constructor() {
     super();
     this.state = {
-      noContentFoundMessage: 'No customer found',
-      alertMessage: '',
-      showMessage: false,
-      selectedSectionId: 1,
-      drawerState: false,
-      user: {
-        name: 'Vuong LV',
-        email: 'vuong.lv34@gmail.com',
-        avatar: 'https://via.placeholder.com/150x150'
-      },
+      // noContentFoundMessage: 'No customer found',
+      // alertMessage: '',
+      // showMessage: false,
+      // selectedSectionId: 1,
+      // drawerState: false,
+      // user: {
+      //   name: 'Vuong LV',
+      //   email: 'vuong.lv34@gmail.com',
+      //   avatar: 'https://via.placeholder.com/150x150'
+      // },
       searchUser: '',
       filterOption: 'All customers',
       allCustomers: [],
       customerList: [],
       selectedCustomers: [],
       selectedCustomer: {},
-      openModal: false   // to open modal to create or update customer
+      openModal: false,   // to open modal to create or update customer
+      // selectedRowKeys: []
     };
   }
 
@@ -86,7 +87,7 @@ class Customers extends Component {
       this.props.onAddCustomer(customer);
     }
 
-    this.setState({loading: false});
+    this.setState({loading: false, selectedCustomers: []});
   };
 
   onDeleteCustomer = () => {
@@ -97,7 +98,7 @@ class Customers extends Component {
     else {
       this.setState({loading: true});
       this.props.onDisableCustomer(selectedCustomers, this.props.customerList);
-      this.setState({loading: false});
+      this.setState({loading: false, selectedCustomers: []});
     }
   };
 
@@ -105,7 +106,7 @@ class Customers extends Component {
     const {customerList, currentPage, pageSize, total} = this.props;
     const {selectedCustomers, openModal} = this.state;
     const rowSelection = {
-      selectedCustomers,
+      selectedRowKeys: selectedCustomers,
       onChange: this.onSelectChange,
       hideDefaultSelections: true,
       selections: [{
