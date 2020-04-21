@@ -272,7 +272,10 @@
   "appearance.nav": "KIỂU ĐIỀU HƯỚNG",
   "appearance.layout": "BỐ CỤC",
   "actions.delete": "Xóa",
+  "actions.delete.customer.confirm": "Bạn có muốn xóa khách hàng?",
   "actions.edit": "Sửa",
   "actions.edit.customer": "Chỉnh sửa khách hành",
-  "actions.add.customer": "Thêm Khách Hàng"
+  "actions.add.customer": "Thêm Khách Hàng",
+  "actions.yes": "Đồng ý",
+  "actions.no": "Không"
 }

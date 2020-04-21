@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {onGetCustomers, onAddCustomer, onUpdateCustomer, onUpdateSelectedCustomer, onCloseModal} from "../../../appRedux/actions";
 import {connect} from "react-redux";
 // import CustomerTable from "./CustomerTable";
-import {Button, Card, Table, message} from "antd";
+import {Button, Card, Table, message, Popconfirm} from "antd";
 import IntlMessages from "../../../util/IntlMessages";
 import {logout} from "../../../util/Debug";
 import CustomerModal from "./CustomerModal";
@@ -103,6 +103,12 @@ class Customers extends Component {
     this.setState({loading: false});
   };
 
+  onDeleteCustomer = () => {
+    this.setState({loading: true});
+
+    this.setState({loading: false});
+  };
+
   render() {
     const {customerList, currentPage, pageSize, total} = this.props;
     const {selectedCustomerKeys, openModal} = this.state;
@@ -164,11 +170,17 @@ class Customers extends Component {
               <IntlMessages id="actions.edit"/>
             </Button>
 
-            <Button className="ant-btn" type="danger" aria-label="add"
-                    onClick={this.onAddContact}>
-              <i className="icon icon-trash gx-mr-2"/>
-              <IntlMessages id="actions.delete"/>
-            </Button>
+            <Popconfirm
+              placement="top" title={<IntlMessages id="actions.delete.customer.confirm"/>}
+              okText={<IntlMessages id="actions.yes"/>}
+              cancelText={<IntlMessages id="actions.no"/>}
+              onConfirm={this.onDeleteCustomer}
+            >
+              <Button className="ant-btn" type="danger" aria-label="add">
+                <i className="icon icon-trash gx-mr-2"/>
+                <IntlMessages id="actions.delete"/>
+              </Button>
+            </Popconfirm>
           </div>
           <Table
             className="gx-table-responsive"

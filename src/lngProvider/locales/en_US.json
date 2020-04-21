@@ -275,7 +275,10 @@
   "appearance.layout": "LAYOUT",
   "vchain": "V-Chain",
   "actions.delete": "Delete",
+  "actions.delete.customer.confirm": "Are you sure ?",
   "actions.edit": "Edit",
   "actions.edit.customer": "Edit Customer",
-  "actions.add.customer": "Add Customer"
+  "actions.add.customer": "Add Customer",
+  "actions.yes": "Yes",
+  "actions.no": "No"
 }
