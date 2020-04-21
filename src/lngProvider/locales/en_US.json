@@ -274,7 +274,7 @@
   "appearance.nav": "NAV STYLE",
   "appearance.layout": "LAYOUT",
   "vchain": "V-Chain",
-  "actions.delete": "Delete",
+  "actions.delete": "Disable",
   "actions.delete.customer.confirm": "Are you sure ?",
   "actions.edit": "Edit",
   "actions.edit.customer": "Edit Customer",

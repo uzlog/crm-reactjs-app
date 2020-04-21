@@ -29,7 +29,7 @@ class CustomerModal extends React.Component {
 
   render() {
     const {onSaveUser, onUserClose, open, edit} = this.props;
-    const {key, name, phone, email, username, password} = edit ? this.props.customerList[this.props.selectedCustomers[0]] : this.state;
+    const {key, name, phone, email, username} = edit ? this.props.customerList[this.props.selectedCustomers[0]] : this.state;
 
     // logout('customer: ', this.props.selectedCustomers[0]);
     // logout(this.props.customerList[this.props.selectedCustomers[0]]);

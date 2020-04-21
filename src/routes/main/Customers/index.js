@@ -1,29 +1,15 @@
 import React, {Component} from "react";
-import {onGetCustomers, onAddCustomer, onUpdateCustomer, onUpdateSelectedCustomer, onCloseModal} from "../../../appRedux/actions";
+import {onGetCustomers, onAddCustomer, onUpdateCustomer, onUpdateSelectedCustomer, onCloseModal, onDisableCustomer} from "../../../appRedux/actions";
 import {connect} from "react-redux";
 // import CustomerTable from "./CustomerTable";
 import {Button, Card, Table, message, Popconfirm} from "antd";
+import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import IntlMessages from "../../../util/IntlMessages";
 import {logout} from "../../../util/Debug";
 import CustomerModal from "./CustomerModal";
+import {columns} from "./TableConfig";
 
 let userId = 73434;
-
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name'
-  },
-  {
-    title: 'Phone Number',
-    dataIndex: 'phone'
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email'
-  }
-];
-
 
 class Customers extends Component {
 
@@ -65,7 +51,6 @@ class Customers extends Component {
   }
 
   onSelectChange = (selectedCustomers) => {
-    // log("selected customer keys: ", selectedCustomerKeys);
     this.setState({selectedCustomers});
   };
 
@@ -76,7 +61,7 @@ class Customers extends Component {
   onUpdateCustomer = () => {
     let selectedCustomers = this.state.selectedCustomers;
     if (selectedCustomers.length !== 1){
-      message.error('Please select one!')
+      message.error('Please select one!');
     }
     else {
       this.props.onUpdateSelectedCustomer(selectedCustomers);
@@ -85,35 +70,42 @@ class Customers extends Component {
   };
 
   onCustomerClose = () => {
-    this.setState({openModal: false});
+    logout(this.state.selectedCustomers);
+    this.setState({openModal: false, selectedCustomers: []});
     this.props.onCloseModal();
+    logout(this.state.selectedCustomers);
   };
 
-  onSaveCustomer = (edit, data) => {
+  onSaveCustomer = (edit, customer) => {
     this.setState({loading: true});
-
     if (edit) {
-      this.props.onUpdateCustomer(this.props.customerList[data.key]._id, data);
+      this.props.onUpdateCustomer(this.props.customerList[customer.key]._id, customer);
     }
     else {
-      data = {...data, key: data.key++};
-      this.props.onAddCustomer(data);
+      customer = {...customer, key: customer.key++};
+      this.props.onAddCustomer(customer);
     }
 
     this.setState({loading: false});
   };
 
   onDeleteCustomer = () => {
-    this.setState({loading: true});
-
-    this.setState({loading: false});
+    let selectedCustomers = this.state.selectedCustomers;
+    if (selectedCustomers.length === 0){
+      message.error('Please select at least one customer!');
+    }
+    else {
+      this.setState({loading: true});
+      this.props.onDisableCustomer(selectedCustomers, this.props.customerList);
+      this.setState({loading: false});
+    }
   };
 
   render() {
     const {customerList, currentPage, pageSize, total} = this.props;
-    const {selectedCustomerKeys, openModal} = this.state;
+    const {selectedCustomers, openModal} = this.state;
     const rowSelection = {
-      selectedCustomerKeys,
+      selectedCustomers,
       onChange: this.onSelectChange,
       hideDefaultSelections: true,
       selections: [{
@@ -164,7 +156,7 @@ class Customers extends Component {
               <IntlMessages id="actions.add.customer"/>
             </Button>
 
-            <Button className="ant-btn" aria-label="add"
+            <Button className="ant-btn" aria-label="update"
                     onClick={this.onUpdateCustomer}>
               <i className="icon icon-edit gx-mr-2"/>
               <IntlMessages id="actions.edit"/>
@@ -176,7 +168,7 @@ class Customers extends Component {
               cancelText={<IntlMessages id="actions.no"/>}
               onConfirm={this.onDeleteCustomer}
             >
-              <Button className="ant-btn" type="danger" aria-label="add">
+              <Button className="ant-btn" type="danger" aria-label="delete">
                 <i className="icon icon-trash gx-mr-2"/>
                 <IntlMessages id="actions.delete"/>
               </Button>
@@ -223,5 +215,6 @@ export default connect(mapStateToProps, {
   onAddCustomer,
   onUpdateCustomer,
   onUpdateSelectedCustomer,
-  onCloseModal
+  onCloseModal,
+  onDisableCustomer
 })(Customers);

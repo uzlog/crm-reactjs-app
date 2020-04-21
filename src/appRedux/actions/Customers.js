@@ -1,11 +1,14 @@
 import {
-  FETCH_START,
-  FETCH_SUCCESS,
   GET_ALL_CUSTOMERS_SUCCESS,
   LOADING,
   ON_ADD_CUSTOMER_SUCCESS,
   ON_ADD_CUSTOMER_FAIL,
-  ON_UPDATE_SELECTED_CUSTOMER, ON_CLOSE_MODAL, UPDATE_CUSTOMER_SUCCESS, UPDATE_CUSTOMER_FAIL
+  ON_UPDATE_SELECTED_CUSTOMER,
+  ON_CLOSE_MODAL,
+  UPDATE_CUSTOMER_SUCCESS,
+  UPDATE_CUSTOMER_FAIL,
+  DISABLE_CUSTOMER_SUCCESS,
+  DISABLE_CUSTOMER_FAIL
 } from "../../constants/ActionTypes";
 
 import { USER_API, FAIL} from "../../util/ApiCalling";
@@ -15,10 +18,9 @@ import {message} from "antd";
 
 export const onGetCustomers = () => {
   return async (dispatch) => {
-    dispatch({type: FETCH_START});
+    // dispatch({type: FETCH_START});
     const response = await USER_API.get('users');
-    console.log(response.data);
-    dispatch({type: FETCH_SUCCESS});
+    // dispatch({type: FETCH_SUCCESS})
 
     dispatch({
       type: GET_ALL_CUSTOMERS_SUCCESS,
@@ -52,7 +54,7 @@ export const onAddCustomer = (user) => {
 export const onUpdateCustomer = (id, data) => {
 
   return async (dispatch) => {
-    logout('update user: ' + id + ' with data: ' + data);
+    logout(data);
     const response = await USER_API.put('users/' + id, data);
     if (response.data.status === FAIL){
       message.error(response.data.data.message);
@@ -82,5 +84,25 @@ export const onCloseModal = () => {
     logout('close modal');
     dispatch({type: ON_CLOSE_MODAL});
   }
+};
+
+export const onDisableCustomer = (selectedCustomers, customerList) => {
+  return async (dispatch) => {
+    const user_ids = selectedCustomers.map((customerIndex) => {
+      return customerList[customerIndex]._id;
+    });
+
+    const response = await USER_API.delete('/users', {data: {user_ids}});
+    if (response.data.status === FAIL){
+      message.error('Server going wrong!');
+      dispatch({type: DISABLE_CUSTOMER_FAIL});
+    }
+    else {
+      dispatch({
+        type: DISABLE_CUSTOMER_SUCCESS,
+        payload: selectedCustomers
+      });
+    }
+  };
 };
 

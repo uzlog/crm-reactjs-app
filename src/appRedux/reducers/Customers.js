@@ -3,7 +3,7 @@ import {
   LOADING,
   ON_ADD_CUSTOMER_SUCCESS,
   ON_ADD_CUSTOMER_FAIL,
-  ON_UPDATE_SELECTED_CUSTOMER, ON_CLOSE_MODAL, UPDATE_CUSTOMER_SUCCESS, UPDATE_CUSTOMER_FAIL
+  ON_UPDATE_SELECTED_CUSTOMER, ON_CLOSE_MODAL, UPDATE_CUSTOMER_SUCCESS, UPDATE_CUSTOMER_FAIL, DISABLE_CUSTOMER_SUCCESS
 } from "../../constants/ActionTypes";
 import {logout} from "../../util/Debug";
 
@@ -28,12 +28,11 @@ export default (state = INIT_STATE, action) => {
     }
 
     case GET_ALL_CUSTOMERS_SUCCESS:{
-      console.log(action.payload);
       const {result, page, page_size, total_elements} = action.payload;
       let customerList = result.map((val, index) => {
         return {key: index, ...val};
       });
-      logout(customerList);
+
       return {
         ...state,
         customerList: customerList,
@@ -85,7 +84,7 @@ export default (state = INIT_STATE, action) => {
         customerList: newCustomerList,
         selectedCustomers: [],
         edit: false
-      }
+      };
     }
 
     case UPDATE_CUSTOMER_FAIL:{
@@ -93,7 +92,19 @@ export default (state = INIT_STATE, action) => {
         ...state,
         selectedCustomers: [],
         edit: false
-      }
+      };
+    }
+
+    case DISABLE_CUSTOMER_SUCCESS:{
+      action.payload.map((key) => {
+        state.customerList[key] = {...state.customerList[key], 'active': false};
+      });
+      logout(state.customerList);
+      return {
+        ...state,
+        customerList: state.customerList,
+        selectedCustomers: []
+      };
     }
 
     default:
