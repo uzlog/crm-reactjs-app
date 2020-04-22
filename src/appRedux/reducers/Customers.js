@@ -3,7 +3,12 @@ import {
   LOADING,
   ON_ADD_CUSTOMER_SUCCESS,
   ON_ADD_CUSTOMER_FAIL,
-  ON_UPDATE_SELECTED_CUSTOMER, ON_CLOSE_MODAL, UPDATE_CUSTOMER_SUCCESS, UPDATE_CUSTOMER_FAIL, DISABLE_CUSTOMER_SUCCESS
+  ON_UPDATE_SELECTED_CUSTOMER,
+  ON_CLOSE_MODAL,
+  UPDATE_CUSTOMER_SUCCESS,
+  UPDATE_CUSTOMER_FAIL,
+  DISABLE_CUSTOMER_SUCCESS,
+  ON_CHOOSE_CUSTOMER
 } from "../../constants/ActionTypes";
 import {logout} from "../../util/Debug";
 
@@ -27,7 +32,7 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
-    case GET_ALL_CUSTOMERS_SUCCESS:{
+    case GET_ALL_CUSTOMERS_SUCCESS: {
       const {result, page, page_size, total_elements} = action.payload;
       let customerList = result.map((val, index) => {
         return {key: index, ...val};
@@ -42,7 +47,14 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
-    case ON_ADD_CUSTOMER_SUCCESS:{
+    case ON_CHOOSE_CUSTOMER: {
+      return {
+        ...state,
+        selectedCustomers: action.payload
+      }
+    }
+
+    case ON_ADD_CUSTOMER_SUCCESS: {
 
       return {
         ...state,
@@ -51,14 +63,14 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
-    case ON_ADD_CUSTOMER_FAIL:{
+    case ON_ADD_CUSTOMER_FAIL: {
       return {
         ...state,
         loading: false
       };
     }
 
-    case ON_UPDATE_SELECTED_CUSTOMER:{
+    case ON_UPDATE_SELECTED_CUSTOMER: {
       return {
         ...state,
         selectedCustomers: action.payload,
@@ -66,7 +78,7 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
-    case ON_CLOSE_MODAL:{
+    case ON_CLOSE_MODAL: {
       return {
         ...state,
         selectedCustomers: [],
@@ -74,7 +86,7 @@ export default (state = INIT_STATE, action) => {
       }
     }
 
-    case UPDATE_CUSTOMER_SUCCESS:{
+    case UPDATE_CUSTOMER_SUCCESS: {
       const key = action.payload.key;
       state.customerList[key] = {...state.customerList[key], ...action.payload};
       const newCustomerList = state.customerList;
@@ -87,7 +99,7 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
-    case UPDATE_CUSTOMER_FAIL:{
+    case UPDATE_CUSTOMER_FAIL: {
       return {
         ...state,
         selectedCustomers: [],
@@ -95,7 +107,7 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
-    case DISABLE_CUSTOMER_SUCCESS:{
+    case DISABLE_CUSTOMER_SUCCESS: {
       action.payload.map((key) => {
         state.customerList[key] = {...state.customerList[key], 'active': false};
       });

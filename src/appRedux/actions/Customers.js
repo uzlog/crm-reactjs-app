@@ -8,7 +8,7 @@ import {
   UPDATE_CUSTOMER_SUCCESS,
   UPDATE_CUSTOMER_FAIL,
   DISABLE_CUSTOMER_SUCCESS,
-  DISABLE_CUSTOMER_FAIL
+  DISABLE_CUSTOMER_FAIL, ON_CHOOSE_CUSTOMER
 } from "../../constants/ActionTypes";
 
 import { USER_API, FAIL} from "../../util/ApiCalling";
@@ -104,6 +104,15 @@ export const onDisableCustomer = (selectedCustomers, customerList) => {
         payload: selectedCustomers
       });
     }
+  };
+};
+
+export const onChooseCustomer = (selectedCustomers) => {
+  return async (dispatch) => {
+    dispatch({
+      type: ON_CHOOSE_CUSTOMER,
+      payload: selectedCustomers
+    })
   };
 };
 

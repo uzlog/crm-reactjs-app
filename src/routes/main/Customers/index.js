@@ -1,10 +1,19 @@
 import React, {Component} from "react";
-import {onGetCustomers, onAddCustomer, onUpdateCustomer, onUpdateSelectedCustomer, onCloseModal, onDisableCustomer} from "../../../appRedux/actions";
+import {
+  onGetCustomers,
+  onAddCustomer,
+  onUpdateCustomer,
+  onUpdateSelectedCustomer,
+  onCloseModal,
+  onDisableCustomer,
+  onChooseCustomer
+} from "../../../appRedux/actions";
 import {connect} from "react-redux";
 import {Button, Card, Table, message, Popconfirm} from "antd";
 import IntlMessages from "../../../util/IntlMessages";
 import {logout} from "../../../util/Debug";
 import CustomerModal from "./CustomerModal";
+import CustomerView from "./CustomerView";
 import {columns} from "./TableConfig";
 
 let userId = 73434;
@@ -21,6 +30,7 @@ class Customers extends Component {
       selectedCustomers: [],
       selectedCustomer: {},
       openModal: false,   // to open modal to create or update customer
+      viewCustomer: false
     };
   }
 
@@ -48,10 +58,9 @@ class Customers extends Component {
 
   onUpdateCustomer = () => {
     let selectedCustomers = this.state.selectedCustomers;
-    if (selectedCustomers.length !== 1){
+    if (selectedCustomers.length !== 1) {
       message.error('Please select one!');
-    }
-    else {
+    } else {
       this.props.onUpdateSelectedCustomer(selectedCustomers);
       this.setState({openModal: true});
     }
@@ -68,8 +77,7 @@ class Customers extends Component {
     this.setState({loading: true});
     if (edit) {
       this.props.onUpdateCustomer(this.props.customerList[customer.key]._id, customer);
-    }
-    else {
+    } else {
       customer = {...customer, key: customer.key++};
       this.props.onAddCustomer(customer);
     }
@@ -79,10 +87,9 @@ class Customers extends Component {
 
   onDeleteCustomer = () => {
     let selectedCustomers = this.state.selectedCustomers;
-    if (selectedCustomers.length === 0){
+    if (selectedCustomers.length === 0) {
       message.error('Please select at least one customer!');
-    }
-    else {
+    } else {
       this.setState({loading: true});
       this.props.onDisableCustomer(selectedCustomers, this.props.customerList);
       this.setState({loading: false, selectedCustomers: []});
@@ -95,9 +102,23 @@ class Customers extends Component {
     this.setState({loading: false, selectedCustomers: []});
   };
 
+  onViewCustomer = () => {
+    let selectedCustomers = this.state.selectedCustomers;
+    if (selectedCustomers.length !== 1) {
+      message.error('Please select one!');
+    } else {
+      this.props.onChooseCustomer(selectedCustomers);
+      this.setState({viewCustomer: true});
+    }
+  };
+
+  onCloseCustomerView = () => {
+    this.setState({viewCustomer: false, selectedCustomers: []});
+  };
+
   render() {
     const {customerList, currentPage, pageSize, total} = this.props;
-    const {selectedCustomers, openModal} = this.state;
+    const {selectedCustomers, openModal, viewCustomer} = this.state;
     const rowSelection = {
       selectedRowKeys: selectedCustomers,
       onChange: this.onSelectChange,
@@ -142,8 +163,15 @@ class Customers extends Component {
 
     return (
       <div>
-        <Card title="Customer Table">
+        <Card title={<IntlMessages id="customers.table"/>}>
           <div className="table-operations">
+
+            <Button className="ant-btn" type="primary" aria-label="view"
+                    onClick={this.onViewCustomer}>
+              <i className="icon icon-custom-view gx-mr-2"/>
+              <IntlMessages id="actions.view"/>
+            </Button>
+
             <Button className="ant-btn" type="primary" aria-label="add"
                     onClick={this.onAddCustomer}>
               <i className="icon icon-add gx-mr-2"/>
@@ -170,7 +198,7 @@ class Customers extends Component {
           </div>
           <Table
             className="gx-table-responsive"
-            loading={this.props.loading}
+            loading={this.state.loading}
             rowSelection={rowSelection}
             columns={columns}
             dataSource={customerList}
@@ -195,6 +223,12 @@ class Customers extends Component {
           onSaveUser={this.onSaveCustomer}
           onUserClose={this.onCustomerClose}
         />
+
+        <CustomerView
+          open={viewCustomer}
+          onClose={this.onCloseCustomerView}
+        />
+
       </div>
     );
   }
@@ -211,5 +245,6 @@ export default connect(mapStateToProps, {
   onUpdateCustomer,
   onUpdateSelectedCustomer,
   onCloseModal,
-  onDisableCustomer
+  onDisableCustomer,
+  onChooseCustomer
 })(Customers);
