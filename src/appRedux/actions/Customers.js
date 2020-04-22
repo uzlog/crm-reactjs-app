@@ -16,10 +16,11 @@ import {logout} from "../../util/Debug";
 import {message} from "antd";
 
 
-export const onGetCustomers = () => {
+export const onGetCustomers = (page, pageSize) => {
   return async (dispatch) => {
     // dispatch({type: FETCH_START});
-    const response = await USER_API.get('users');
+    const url = 'users?page=' + page + '&page_size=' + pageSize;
+    const response = await USER_API.get(url);
     // dispatch({type: FETCH_SUCCESS})
 
     dispatch({

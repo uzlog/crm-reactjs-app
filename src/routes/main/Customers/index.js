@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import {onGetCustomers, onAddCustomer, onUpdateCustomer, onUpdateSelectedCustomer, onCloseModal, onDisableCustomer} from "../../../appRedux/actions";
 import {connect} from "react-redux";
-// import CustomerTable from "./CustomerTable";
 import {Button, Card, Table, message, Popconfirm} from "antd";
-import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import IntlMessages from "../../../util/IntlMessages";
 import {logout} from "../../../util/Debug";
 import CustomerModal from "./CustomerModal";
@@ -16,16 +14,6 @@ class Customers extends Component {
   constructor() {
     super();
     this.state = {
-      // noContentFoundMessage: 'No customer found',
-      // alertMessage: '',
-      // showMessage: false,
-      // selectedSectionId: 1,
-      // drawerState: false,
-      // user: {
-      //   name: 'Vuong LV',
-      //   email: 'vuong.lv34@gmail.com',
-      //   avatar: 'https://via.placeholder.com/150x150'
-      // },
       searchUser: '',
       filterOption: 'All customers',
       allCustomers: [],
@@ -33,12 +21,11 @@ class Customers extends Component {
       selectedCustomers: [],
       selectedCustomer: {},
       openModal: false,   // to open modal to create or update customer
-      // selectedRowKeys: []
     };
   }
 
   componentDidMount() {
-    this.props.onGetCustomers();
+    this.props.onGetCustomers(1, 10);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -100,6 +87,12 @@ class Customers extends Component {
       this.props.onDisableCustomer(selectedCustomers, this.props.customerList);
       this.setState({loading: false, selectedCustomers: []});
     }
+  };
+
+  onPageChange = (page, pageSize) => {
+    this.setState({loading: true});
+    this.props.onGetCustomers(page, pageSize);
+    this.setState({loading: false, selectedCustomers: []});
   };
 
   render() {
@@ -184,7 +177,8 @@ class Customers extends Component {
             pagination={{
               current: currentPage,
               pageSize: pageSize,
-              total: total
+              total: total,
+              onChange: this.onPageChange
             }}
           />
         </Card>
