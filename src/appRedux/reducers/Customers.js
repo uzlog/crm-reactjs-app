@@ -110,6 +110,7 @@ export default (state = INIT_STATE, action) => {
     case DISABLE_CUSTOMER_SUCCESS: {
       action.payload.map((key) => {
         state.customerList[key] = {...state.customerList[key], 'active': false};
+        return key;
       });
       logout(state.customerList);
       return {

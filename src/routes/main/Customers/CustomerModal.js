@@ -1,12 +1,12 @@
 import React from "react";
-import {Avatar, Input, Modal, Form} from "antd";
+import {Input, Modal, Form} from "antd";
 import IntlMessages from "../../../util/IntlMessages";
 import {connect} from "react-redux";
 import {logout} from "../../../util/Debug";
 import {PHONE_REGEX, USERNAME_REGEX} from "../../../constants/Regex";
 
 
-const thumb = require('assets/images/placeholder.jpg');
+// const thumb = require('assets/images/placeholder.jpg');
 const FormItem = Form.Item;
 
 
