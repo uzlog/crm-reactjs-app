@@ -6,10 +6,11 @@ import {
   onUpdateSelectedCustomer,
   onCloseModal,
   onDisableCustomer,
-  onChooseCustomer
+  onChooseCustomer,
+  onSearchUsers
 } from "../../../appRedux/actions";
 import {connect} from "react-redux";
-import {Button, Card, Table, message, Popconfirm} from "antd";
+import {Button, Card, Table, message, Popconfirm, Input} from "antd";
 import IntlMessages from "../../../util/IntlMessages";
 import {logout} from "../../../util/Debug";
 import CustomerModal from "./CustomerModal";
@@ -116,6 +117,11 @@ class Customers extends Component {
     this.setState({viewCustomer: false, selectedCustomers: []});
   };
 
+  onSearch = (event) => {
+    logout(event.target.value);
+    this.props.onSearchUsers(event.target.value);
+  };
+
   render() {
     const {customerList, currentPage, pageSize, total} = this.props;
     const {selectedCustomers, openModal, viewCustomer} = this.state;
@@ -165,7 +171,6 @@ class Customers extends Component {
       <div>
         <Card title={<IntlMessages id="customers.table"/>}>
           <div className="table-operations">
-
             <Button className="ant-btn" type="primary" aria-label="view"
                     onClick={this.onViewCustomer}>
               <i className="icon icon-custom-view gx-mr-2"/>
@@ -195,6 +200,16 @@ class Customers extends Component {
                 <IntlMessages id="actions.delete"/>
               </Button>
             </Popconfirm>
+
+            <Input.Search
+              onChange={this.onSearch}
+              style={{
+                float: 'right',
+                marginRight: '9em',
+                width: '20%'
+              }}
+            />
+
           </div>
           <Table
             className="gx-table-responsive"
@@ -246,5 +261,6 @@ export default connect(mapStateToProps, {
   onUpdateSelectedCustomer,
   onCloseModal,
   onDisableCustomer,
-  onChooseCustomer
+  onChooseCustomer,
+  onSearchUsers
 })(Customers);

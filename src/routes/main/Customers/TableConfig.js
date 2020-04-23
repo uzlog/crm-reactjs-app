@@ -1,5 +1,9 @@
 import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import React from "react";
+import {Select} from "antd";
+import IntlMessages from "../../../util/IntlMessages";
+
+const {Option} = Select;
 
 export const columns = [
   {
@@ -23,3 +27,12 @@ export const columns = [
     )
   }
 ];
+
+export const prefix_search = (
+  <Select
+    defaultValue="name="
+  >
+    <Option value="name="><IntlMessages id="customer.name"/></Option>
+    <Option value="phone="><IntlMessages id="customer.phone"/></Option>
+  </Select>
+);

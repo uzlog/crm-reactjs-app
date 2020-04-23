@@ -16,6 +16,8 @@ import {logout} from "../../util/Debug";
 import {message} from "antd";
 
 
+const DEFAULT_URL = 'users?page=1&page_size=10';
+
 export const onGetCustomers = (page, pageSize) => {
   return async (dispatch) => {
     // dispatch({type: FETCH_START});
@@ -113,6 +115,25 @@ export const onChooseCustomer = (selectedCustomers) => {
       type: ON_CHOOSE_CUSTOMER,
       payload: selectedCustomers
     })
+  };
+};
+
+export const onSearchUsers = (search_str) => {
+  return async (dispatch) => {
+    if (search_str === ''){
+      const response = await USER_API.get(DEFAULT_URL);
+      dispatch({
+        type: GET_ALL_CUSTOMERS_SUCCESS,
+        payload: response.data.data
+      });
+    }
+    else {
+      const response = await USER_API.get('users/search?q=' + search_str);
+      dispatch({
+        type: GET_ALL_CUSTOMERS_SUCCESS,
+        payload: response.data.data
+      });
+    }
   };
 };
 
