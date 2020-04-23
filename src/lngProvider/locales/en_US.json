@@ -236,7 +236,7 @@
   "customer.name": "Name",
   "customer.email": "Email",
   "customer.location": "Location",
-  "customer.phone": "Phone number",
+  "customer.phone": "Phone Number",
   "customer.active": "Active",
   "customer.balance": "Balance",
   "id": "ID",

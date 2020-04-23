@@ -2,6 +2,7 @@ import React from "react";
 import IntlMessages from "../../../util/IntlMessages";
 import {Drawer, Tabs} from "antd";
 import {connect} from "react-redux";
+import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 
 const {TabPane} = Tabs;
 
@@ -33,7 +34,7 @@ class CustomerView extends React.Component {
                   <p><IntlMessages id="customer.location"/>: {customer.location}</p>
                 </TabPane>
                 <TabPane tab={<IntlMessages id="customer.system"/>} key="2">
-                  <p><IntlMessages id="customer.active"/>: {customer.active}</p>
+                  <p><IntlMessages id="customer.active"/>: {customer.active ? <CheckCircleOutlined style={{color: '#4CAF50'}} /> : <CloseCircleOutlined style={{color: '#f44336'}}/>}</p>
                   <p><IntlMessages id="customer.balance"/>: {customer.balance}</p>
 
                 </TabPane>
