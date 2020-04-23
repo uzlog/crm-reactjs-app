@@ -1,21 +1,26 @@
 import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import React from "react";
+import IntlMessages from "../../../util/IntlMessages";
 
 export const columns = [
   {
-    title: 'Name',
+    title: (<IntlMessages id="customer.name" />) ,
     dataIndex: 'name'
   },
   {
-    title: 'Phone Number',
+    title: (<IntlMessages id="customer.phone" />),
     dataIndex: 'phone'
   },
   {
-    title: 'Email',
+    title: (<IntlMessages id="customer.email" />),
     dataIndex: 'email'
   },
   {
-    title: 'Active',
+    title: (<IntlMessages id="customer.birthday" />),
+    dataIndex: 'birthday'
+  },
+  {
+    title: (<IntlMessages id="customer.active" />),
     key: 'active',
     dataIndex: 'active',
     render: (active) => (

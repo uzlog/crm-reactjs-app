@@ -68,10 +68,8 @@ class Customers extends Component {
   };
 
   onCustomerClose = () => {
-    logout(this.state.selectedCustomers);
     this.setState({openModal: false, selectedCustomers: []});
     this.props.onCloseModal();
-    logout(this.state.selectedCustomers);
   };
 
   onSaveCustomer = (edit, customer) => {
@@ -118,7 +116,6 @@ class Customers extends Component {
   };
 
   onSearch = (event) => {
-    logout(event.target.value);
     this.props.onSearchUsers(event.target.value);
   };
 

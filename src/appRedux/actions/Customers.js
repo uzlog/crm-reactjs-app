@@ -12,7 +12,7 @@ import {
 } from "../../constants/ActionTypes";
 
 import { USER_API, FAIL} from "../../util/ApiCalling";
-import {logout} from "../../util/Debug";
+// import {logout} from "../../util/Debug";
 import {message} from "antd";
 
 
@@ -36,10 +36,8 @@ export const onAddCustomer = (user) => {
   return async (dispatch) => {
     dispatch({type: LOADING});
 
-    // logout('add user: ', user);
     const response = await USER_API.post('users', user);
 
-    logout(response);
     if (response.data.status === FAIL){
       message.error(response.data.data.message);
       dispatch({type: ON_ADD_CUSTOMER_FAIL});
@@ -74,7 +72,6 @@ export const onUpdateCustomer = (id, data) => {
 
 export const onUpdateSelectedCustomer = (selectedCustomers) => {
   return async (dispatch) => {
-    logout('action: ', selectedCustomers);
     dispatch({
       type: ON_UPDATE_SELECTED_CUSTOMER,
       payload: selectedCustomers
@@ -84,7 +81,6 @@ export const onUpdateSelectedCustomer = (selectedCustomers) => {
 
 export const onCloseModal = () => {
   return async (dispatch) => {
-    logout('close modal');
     dispatch({type: ON_CLOSE_MODAL});
   }
 };
