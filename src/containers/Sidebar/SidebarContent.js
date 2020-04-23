@@ -15,6 +15,7 @@ import {
 } from "../../constants/ThemeSetting";
 import IntlMessages from "../../util/IntlMessages";
 import {connect} from "react-redux";
+import {openCustomizer} from "../../appRedux/actions";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -67,8 +68,8 @@ class SidebarContent extends Component {
 
                 </SubMenu>
 
-                <Menu.Item key="social-apps/wall">
-                  <Link to="/in-built-apps/firebase-crud">
+                <Menu.Item key="main/customers">
+                  <Link to="/main/customers">
                     <i className="icon icon-contacts -flex-column-reverse"/>
                     <IntlMessages id="sidebar.customers"/>
                   </Link>
@@ -80,13 +81,6 @@ class SidebarContent extends Component {
                     id="sidebar.tasks"/></Link>
                 </Menu.Item>
 
-                <Menu.Item key="main/customers">
-                  <Link to="/main/customers">
-                    <i className="icon icon-contacts -flex-column-reverse"/>
-                    <IntlMessages id="sidebar.customers"/>
-                  </Link>
-                </Menu.Item>
-
               </MenuItemGroup>
 
               <MenuItemGroup key="extensions" className="gx-menu-group"
@@ -96,6 +90,15 @@ class SidebarContent extends Component {
                     id="sidebar.extensions.mail"/></Link>
                 </Menu.Item>
               </MenuItemGroup>
+
+              <MenuItemGroup key="extensions" className="gx-menu-group"
+                             title={<IntlMessages id="sidebar.settings"/>}>
+                <Menu.Item key="setting/appearance" onClick={this.props.openCustomizer}>
+                  <i className="icon icon-eye"/><IntlMessages
+                    id="settings.appearance"/>
+                </Menu.Item>
+              </MenuItemGroup>
+
             </Menu>
           </CustomScrollbars>
         </div>
@@ -109,5 +112,7 @@ const mapStateToProps = ({settings}) => {
   const {navStyle, themeType, locale, pathname} = settings;
   return {navStyle, themeType, locale, pathname}
 };
-export default connect(mapStateToProps)(SidebarContent);
+export default connect(mapStateToProps, {
+  openCustomizer
+})(SidebarContent);
 

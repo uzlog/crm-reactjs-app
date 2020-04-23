@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import ColorPicker from "./ColorPicker";
 import Auxiliary from "util/Auxiliary";
 import CustomScrollbars from "util/CustomScrollbars";
-import {onLayoutTypeChange, onNavStyleChange, setThemeColorSelection, setThemeType} from "appRedux/actions/Setting";
+import {onLayoutTypeChange, onNavStyleChange, setThemeColorSelection, setThemeType, closeCustomizer} from "appRedux/actions/Setting";
 
 import {
   BLUE,
@@ -127,12 +127,6 @@ class Customizer extends Component {
       .catch(error => {
         message.error(`Failed to reset theme`);
       });
-  };
-  toggleCustomizer = () => {
-    this.setState(previousState => (
-      {
-        isCustomizerOpened: !previousState.isCustomizerOpened
-      }));
   };
 
   onThemeTypeChange = (e) => {
@@ -387,7 +381,7 @@ class Customizer extends Component {
     try {
       vars = Object.assign({}, initialValue, JSON.parse(localStorage.getItem('app-theme')));
     } finally {
-      this.state = {vars, initialValue, isCustomizerOpened: false};
+      this.state = {vars, initialValue};
       window.less
         .modifyVars(vars)
         .then(() => {
@@ -400,23 +394,17 @@ class Customizer extends Component {
 
   render() {
 
-
     return (
       <Auxiliary>
         <Drawer
           placement="right"
           closable={false}
-          onClose={this.toggleCustomizer}
-          visible={this.state.isCustomizerOpened}>
+          onClose={this.props.closeCustomizer}
+          visible={this.props.isCustomizerOpened}>
           {
             this.getCustomizerContent()
           }
         </Drawer>
-        <div className="gx-customizer-option">
-          <Button type="primary" onClick={this.toggleCustomizer.bind(this)}>
-            <i className="icon icon-setting fxicon-hc-spin gx-d-block"/>
-          </Button>
-        </div>
       </Auxiliary>
     );
   }
@@ -425,12 +413,13 @@ class Customizer extends Component {
 Customizer = Form.create()(Customizer);
 
 const mapStateToProps = ({settings}) => {
-  const {themeType, width, colorSelection, navStyle, layoutType} = settings;
-  return {themeType, width, colorSelection, navStyle, layoutType}
+  const {themeType, width, colorSelection, navStyle, layoutType, isCustomizerOpened} = settings;
+  return {themeType, width, colorSelection, navStyle, layoutType, isCustomizerOpened}
 };
 export default connect(mapStateToProps, {
   setThemeType,
   onLayoutTypeChange,
   setThemeColorSelection,
-  onNavStyleChange
+  onNavStyleChange,
+  closeCustomizer
 })(Customizer);

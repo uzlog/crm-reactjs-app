@@ -2,6 +2,8 @@
 export const TOGGLE_COLLAPSED_NAV = 'TOGGLE_COLLAPSE_MENU';
 export const WINDOW_WIDTH = 'WINDOW-WIDTH';
 export const SWITCH_LANGUAGE = 'SWITCH-LANGUAGE';
+export const ON_CUSTOMIZER = 'ON_CUSTOMIZER';
+export const CLOSE_CUSTOMER = 'CLOSE_CUSTOMER';
 
 //Contact Module const
 export const FETCH_START = 'fetch_start';

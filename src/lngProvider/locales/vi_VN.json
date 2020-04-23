@@ -249,5 +249,7 @@
   "customer.phone": "Điện thoại",
   "customer.active": "Hoạt động",
   "customer.balance": "Số dư",
-  "customers.table": "Bảng Khách Hàng"
+  "customers.table": "Bảng Khách Hàng",
+  "sidebar.settings": "Cài đặt",
+  "settings.appearance": "Giao diện"
 }

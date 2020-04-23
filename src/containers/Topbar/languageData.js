@@ -10,18 +10,6 @@ const languageData = [
     locale: 'vi',
     name: 'Vietnamese',
     icon: 'vn'
-  },
-  {
-    languageId: 'french',
-    locale: 'fr',
-    name: 'French',
-    icon: 'fr'
-  },
-  {
-    languageId: 'chinese',
-    locale: 'zh',
-    name: 'Chinese',
-    icon: 'cn'
   }
 ];
 export default languageData;

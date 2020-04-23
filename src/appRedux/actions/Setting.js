@@ -1,5 +1,6 @@
 import {SWITCH_LANGUAGE, TOGGLE_COLLAPSED_NAV, WINDOW_WIDTH} from "constants/ActionTypes";
 import {LAYOUT_TYPE, NAV_STYLE, THEME_COLOR_SELECTION, THEME_TYPE} from "../../constants/ThemeSetting";
+import {CLOSE_CUSTOMER, ON_CUSTOMIZER} from "../../constants/ActionTypes";
 
 
 export function toggleCollapsedSideNav(navCollapsed) {
@@ -32,3 +33,15 @@ export function switchLanguage(locale) {
     payload: locale
   };
 }
+
+export const openCustomizer = () => {
+  return {
+    type: ON_CUSTOMIZER
+  }
+};
+
+export const closeCustomizer = () => {
+  return {
+    type: CLOSE_CUSTOMER
+  }
+};

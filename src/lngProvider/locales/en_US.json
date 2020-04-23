@@ -240,5 +240,7 @@
   "customer.active": "Active",
   "customer.balance": "Balance",
   "id": "ID",
-  "customers.table": "Customer Table"
+  "customers.table": "Customer Table",
+  "sidebar.settings": "Settings",
+  "settings.appearance": "Appearance"
 }

@@ -9,6 +9,7 @@ import {
   THEME_TYPE,
   THEME_TYPE_DARK
 } from "../../constants/ThemeSetting";
+import {CLOSE_CUSTOMER, ON_CUSTOMIZER} from "../../constants/ActionTypes";
 
 const initialSettings = {
   navCollapsed: true,
@@ -16,7 +17,6 @@ const initialSettings = {
   layoutType: LAYOUT_TYPE_FULL,
   themeType: THEME_TYPE_DARK,
   colorSelection: THEME_COLOR_SELECTION_PRESET,
-
   pathname: '',
   width: window.innerWidth,
   isDirectionRTL: false,
@@ -25,7 +25,8 @@ const initialSettings = {
     locale: 'en',
     name: 'English',
     icon: 'us'
-  }
+  },
+  isCustomizerOpened: false
 };
 
 const settings = (state = initialSettings, action) => {
@@ -68,12 +69,28 @@ const settings = (state = initialSettings, action) => {
         layoutType: action.layoutType
       };
 
-    case SWITCH_LANGUAGE:
+    case SWITCH_LANGUAGE: {
       return {
         ...state,
         locale: action.payload,
 
       };
+    }
+
+    case ON_CUSTOMIZER: {
+      return {
+        ...state,
+        isCustomizerOpened: true
+      }
+    }
+
+    case CLOSE_CUSTOMER: {
+      return {
+        ...state,
+        isCustomizerOpened: false
+      }
+    }
+
     default:
       return state;
   }
